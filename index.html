@@ -34,8 +34,36 @@
                 </div> -->
             </div>
             <div id="show-all-result" class="hidden text-center m-5">
-                <button onclick="HandleShowAll()" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">show All</button>
+                <button onclick="HandleShowAll()" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">show
+                    All</button>
             </div>
+        </section>
+
+
+        <!-- show details modal -->
+        <section>
+            <!-- Open the modal using ID.showModal() method -->
+            
+            <dialog id="show_details_modal" class="modal modal-bottom sm:modal-middle">
+                <div class="modal-box">
+                    <div id="show-deatils_phone_image">
+
+                    </div>
+                    <h3 id="show-deatils_phone_name" class="font-bold text-lg"></h3>
+                    <p id="show-deatils_phone_storage"></p>
+                    <p id="show-deatils_phone_displaySize"></p>
+                    <p id="show-deatils_phone_releaseDate"></p>
+                    <p id=""></p>
+                    <p id=""></p>
+                    
+                    <div class="modal-action">
+                        <form method="dialog">
+                            <!-- if there is a button in form, it will close the modal -->
+                            <button class="btn">Close</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
         </section>
 
     </main>

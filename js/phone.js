@@ -102,8 +102,45 @@ const HandleShowAll = () => {
 
 // More details button
 
-const MoreDetails=(id) =>{
+const MoreDetails=async (id) =>{
     console.log("each phone id :",id);
+    // now load more data have api link programming hero hunter phone github
+    const res=await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
+    const result=await res.json();
+    console.log(result);
+    DetailsDisplay(result.data)
+    // need open modal mane click kore popup hobe and show korbe
+}
+
+// display details
+
+const DetailsDisplay=(PhoneDetailsData)=>{
+console.log(PhoneDetailsData);
+    show_details_modal.showModal(); // id soho function call .html theke neya daisy ui
+
+    //iamge show
+    const showDeatilsImage=document.getElementById('show-deatils_phone_image');
+    showDeatilsImage.innerHTML=`
+    <img src="${PhoneDetailsData.image}" alt="" />
+    `
+    // name show
+    const showDetailsPhoneName=document.getElementById('show-deatils_phone_name');
+    showDetailsPhoneName.innerText=PhoneDetailsData.name;
+    // storage show
+    const showDetailsPhoneStorage=document.getElementById('show-deatils_phone_storage');
+    showDetailsPhoneStorage.innerHTML=`
+    <p> <span class="font-bold text-2xl">Storage:</span> ${PhoneDetailsData?.mainFeatures?.storage} </p>
+    `
+    //displaySize
+    const showDetailsPhonedisplaySize=document.getElementById('show-deatils_phone_displaySize');
+    showDetailsPhonedisplaySize.innerHTML=`
+    <p> <span class="font-bold text-2xl">displaySize:</span> ${PhoneDetailsData?.mainFeatures?.displaySize} </p>
+    `
+    //releaseDate
+    const showDetailsPhoneReleaseDate=document.getElementById('show-deatils_phone_releaseDate');
+    showDetailsPhoneReleaseDate.innerHTML=`
+    <p> <span class="font-bold text-2xl">ReleaseDate:</span> ${PhoneDetailsData?.releaseDate} </p>
+    `
 }
 loadPhone();// all time display show all phone 
 
