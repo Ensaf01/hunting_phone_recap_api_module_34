@@ -1,7 +1,13 @@
 console.log("hunting")
-
-const loadPhone = async (searchTextFromInputFiled) => {
+// search load phone
+const loadPhone1 = async (searchTextFromInputFiled) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchTextFromInputFiled}`);//searchTextFromInputFiled base kore search korbe
+    const result = await res.json();
+    displayPhone(result.data);
+}
+// we want to show all phone display then base on search show if user search
+const loadPhone = async () => {
+    const res = await fetch('https://openapi.programming-hero.com/api/phones?search=iphone');//searchTextFromInputFiled base kore search korbe
     const result = await res.json();
     displayPhone(result.data);
 }
@@ -50,7 +56,8 @@ const SearchPhone =() =>{
     const searchFiled=document.getElementById('inputFiledText');
     const searchText=searchFiled.value;// this is input that why value use
     console.log(searchText);
-    loadPhone(searchText); // after search we want load. now load function call with argument 'searchText'
+    loadPhone1(searchText); // after search we want load. now load function call with argument 'searchText'
 
 }
+loadPhone();// all time display show all phone 
 
