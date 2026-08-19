@@ -1,9 +1,9 @@
 console.log("hunting")
 // search load phone
-const loadPhone1 = async (searchTextFromInputFiled) => {
+const loadPhone1 = async (searchTextFromInputFiled, isShowAll) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchTextFromInputFiled}`);//searchTextFromInputFiled base kore search korbe
     const result = await res.json();
-    displayPhone(result.data);
+    displayPhone(result.data, isShowAll);
 }
 // we want to show all phone display then base on search show if user search
 const loadPhone = async () => {
@@ -15,7 +15,7 @@ const loadPhone = async () => {
 // have to call  loadPhone() from html or js function,so we call from js
 
 
-const displayPhone = phones => {
+const displayPhone = (phones, isShowAll) => {
     // step-1 read where we want to see phone card
     const phoneContainer = document.getElementById('phone-container');
     // clear container before new phone card
@@ -24,14 +24,19 @@ const displayPhone = phones => {
 
     // show all button if result if gather then 5
     const showButtonContainer = document.getElementById('show-all-result');
-    if (phones.length > 5) {
+    if (phones.length > 5 && !isShowAll)// isShowAll na thakle and 5 besi hole
+     {
         showButtonContainer.classList.remove('hidden')
     }
     else {
         showButtonContainer.classList.add('hidden');
     }
+    console.log("ishowAll check",isShowAll)
+    if (!isShowAll) {
+        phones = phones.slice(0, 5); // all phones or elements na dekhai just 1st 5 ta dekhabo
+    }
     // console.log(phones);
-    phones = phones.slice(0, 5); // all phones or elements na dekhai just 1st 5 ta dekhabo
+
     console.log(phones.length);// after search show koyta dekhache
     phones.forEach(element => {
         console.log(element);//see all phone object
@@ -67,12 +72,12 @@ const displayPhone = phones => {
 
 // search phone
 
-const SearchPhone = () => {
+const SearchPhone = (isShowAll) => {
     Toggoleloading_spinner(true);
     const searchFiled = document.getElementById('inputFiledText');
     const searchText = searchFiled.value;// this is input that why value use
     console.log(searchText);
-    loadPhone1(searchText); // after search we want load. now load function call with argument 'searchText'
+    loadPhone1(searchText, isShowAll); // after search we want load. now load function call with argument 'searchText' and isshowall true or not
 
 }
 
@@ -86,6 +91,12 @@ const Toggoleloading_spinner = (isLoading) => {
     else {
         lodingSpinner.classList.add('hidden')
     }
+
+}
+
+// show all data if gather then result 5
+const HandleShowAll = () => {
+    SearchPhone(true);// again search korbe but abar sob dekhabe 5 ta na,sob dekhabe,so parameter pass korbo
 
 }
 loadPhone();// all time display show all phone 
