@@ -1,23 +1,25 @@
 console.log("hunting")
 
-const loadPhone = async () => {
-    const res = await fetch('https://openapi.programming-hero.com/api/phones?search=iphone');
+const loadPhone = async (searchTextFromInputFiled) => {
+    const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchTextFromInputFiled}`);//searchTextFromInputFiled base kore search korbe
     const result = await res.json();
     displayPhone(result.data);
 }
 
 // have to call  loadPhone() from html or js function,so we call from js
-loadPhone();
+
 
 const displayPhone = phones => {
     // step-1 read where we want to see phone card
     const phoneContainer = document.getElementById('phone-container');
+    // clear container before new phone card
+    phoneContainer.textContent='';// search iphone then search samsung,so iphone do not show now show samsung
     // console.log(phones);
     phones.forEach(element => {
          console.log(element);//see all phone object
         //step -2 create a div that will show in display
         const phoneCard = document.createElement('div');
-        phoneCard.classList = `card bg-orange-200 w-96 shadow-sm p-10 ` // class add 
+        phoneCard.classList = `card bg-orange-200  shadow-sm p-10 ` // class add 
 
         //step -3 ,inner html create
         phoneCard.innerHTML = `
@@ -41,3 +43,14 @@ const displayPhone = phones => {
 
     });
 }
+
+// search phone
+
+const SearchPhone =() =>{
+    const searchFiled=document.getElementById('inputFiledText');
+    const searchText=searchFiled.value;// this is input that why value use
+    console.log(searchText);
+    loadPhone(searchText); // after search we want load. now load function call with argument 'searchText'
+
+}
+
