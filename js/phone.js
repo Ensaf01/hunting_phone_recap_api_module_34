@@ -55,8 +55,8 @@ const displayPhone = (phones, isShowAll) => {
                         <h2 class="card-title">${element.brand}</h2>
                         <p>A card component has a figure, a body part, and inside body there are title and actions parts
                         </p>
-                        <div class="card-actions justify-end">
-                            <button class="btn btn-primary">Buy Now</button>
+                        <div class="card-actions justify-center">
+                            <button onclick="MoreDetails('${element.slug}')" class="btn btn-primary">More Deatils</button>
                         </div>
                 </div>
         `
@@ -98,6 +98,12 @@ const Toggoleloading_spinner = (isLoading) => {
 const HandleShowAll = () => {
     SearchPhone(true);// again search korbe but abar sob dekhabe 5 ta na,sob dekhabe,so parameter pass korbo
 
+}
+
+// More details button
+
+const MoreDetails=(id) =>{
+    console.log("each phone id :",id);
 }
 loadPhone();// all time display show all phone 
 
