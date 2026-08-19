@@ -19,22 +19,22 @@ const displayPhone = phones => {
     // step-1 read where we want to see phone card
     const phoneContainer = document.getElementById('phone-container');
     // clear container before new phone card
-    phoneContainer.textContent='';// search iphone then search samsung,so iphone do not show now show samsung
-     //console.log(phones.length);// search kore je fetch korche segula koyta object ache ba array ache
+    phoneContainer.textContent = '';// search iphone then search samsung,so iphone do not show now show samsung
+    //console.log(phones.length);// search kore je fetch korche segula koyta object ache ba array ache
 
     // show all button if result if gather then 5
-    const showButtonContainer=document.getElementById('show-all-result');
-    if(phones.length>5){
+    const showButtonContainer = document.getElementById('show-all-result');
+    if (phones.length > 5) {
         showButtonContainer.classList.remove('hidden')
     }
-    else{
+    else {
         showButtonContainer.classList.add('hidden');
     }
     // console.log(phones);
-    phones=phones.slice(0,5); // all phones or elements na dekhai just 1st 5 ta dekhabo
-     console.log(phones.length);// after search show koyta dekhache
+    phones = phones.slice(0, 5); // all phones or elements na dekhai just 1st 5 ta dekhabo
+    console.log(phones.length);// after search show koyta dekhache
     phones.forEach(element => {
-         console.log(element);//see all phone object
+        console.log(element);//see all phone object
         //step -2 create a div that will show in display
         const phoneCard = document.createElement('div');
         phoneCard.classList = `card bg-orange-200  shadow-sm p-10 ` // class add 
@@ -60,15 +60,32 @@ const displayPhone = phones => {
         phoneContainer.appendChild(phoneCard)
 
     });
+
+    // hidden spinner ui after append phone
+    Toggoleloading_spinner(false);
 }
 
 // search phone
 
-const SearchPhone =() =>{
-    const searchFiled=document.getElementById('inputFiledText');
-    const searchText=searchFiled.value;// this is input that why value use
+const SearchPhone = () => {
+    Toggoleloading_spinner(true);
+    const searchFiled = document.getElementById('inputFiledText');
+    const searchText = searchFiled.value;// this is input that why value use
     console.log(searchText);
     loadPhone1(searchText); // after search we want load. now load function call with argument 'searchText'
+
+}
+
+//loading-spinner function
+
+const Toggoleloading_spinner = (isLoading) => {
+    const lodingSpinner = document.getElementById('loading-spinner');
+    if (isLoading) {
+        lodingSpinner.classList.remove('hidden');
+    }
+    else {
+        lodingSpinner.classList.add('hidden')
+    }
 
 }
 loadPhone();// all time display show all phone 
