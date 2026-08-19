@@ -20,7 +20,19 @@ const displayPhone = phones => {
     const phoneContainer = document.getElementById('phone-container');
     // clear container before new phone card
     phoneContainer.textContent='';// search iphone then search samsung,so iphone do not show now show samsung
+     //console.log(phones.length);// search kore je fetch korche segula koyta object ache ba array ache
+
+    // show all button if result if gather then 5
+    const showButtonContainer=document.getElementById('show-all-result');
+    if(phones.length>5){
+        showButtonContainer.classList.remove('hidden')
+    }
+    else{
+        showButtonContainer.classList.add('hidden');
+    }
     // console.log(phones);
+    phones=phones.slice(0,5); // all phones or elements na dekhai just 1st 5 ta dekhabo
+     console.log(phones.length);// after search show koyta dekhache
     phones.forEach(element => {
          console.log(element);//see all phone object
         //step -2 create a div that will show in display
