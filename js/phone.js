@@ -68,18 +68,21 @@ const displayPhone = (phones, isShowAll) => {
 
     // hidden spinner ui after append phone
     Toggoleloading_spinner(false);
+    NoDataFound(false)
 }
 
 // search phone
 
 const SearchPhone = (isShowAll) => {
     Toggoleloading_spinner(true);
+    NoDataFound(true);
     const searchFiled = document.getElementById('inputFiledText');
     const searchText = searchFiled.value;// this is input that why value use
     console.log(searchText);
     loadPhone1(searchText, isShowAll); // after search we want load. now load function call with argument 'searchText' and isshowall true or not
 
 }
+
 
 //loading-spinner function
 
@@ -93,6 +96,20 @@ const Toggoleloading_spinner = (isLoading) => {
     }
 
 }
+// no data found
+const NoDataFound = (isDataFound) => {
+    const dataNotFound = document.getElementById('dataNotFoundHereID');
+    if (isDataFound) {
+        dataNotFound.classList.remove('hidden');
+    }
+    else {
+        dataNotFound.innerHTML=`
+        <h1 class="text-center text-2xl font-bold m-20"> Not Found Data</h1>
+        `
+    }
+
+}
+
 
 // show all data if gather then result 5
 const HandleShowAll = () => {
@@ -139,7 +156,7 @@ console.log(PhoneDetailsData);
     //releaseDate
     const showDetailsPhoneReleaseDate=document.getElementById('show-deatils_phone_releaseDate');
     showDetailsPhoneReleaseDate.innerHTML=`
-    <p> <span class="font-bold text-2xl">ReleaseDate:</span> ${PhoneDetailsData?.releaseDate} </p>
+    <p> <span class="font-bold text-2xl">ReleaseDate:</span> ${PhoneDetailsData?.releaseDate || 'No release date'} </p>
     `
 }
 loadPhone();// all time display show all phone 
