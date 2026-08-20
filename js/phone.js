@@ -20,18 +20,26 @@ const displayPhone = (phones, isShowAll) => {
     const phoneContainer = document.getElementById('phone-container');
     // clear container before new phone card
     phoneContainer.textContent = '';// search iphone then search samsung,so iphone do not show now show samsung
+
     //console.log(phones.length);// search kore je fetch korche segula koyta object ache ba array ache
 
+    // no data found
+    if (phones.length === 0) { // that means no data found is true
+        NoDataFound(true);
+    }
+    else {
+        NoDataFound(false);
+    }
     // show all button if result if gather then 5
     const showButtonContainer = document.getElementById('show-all-result');
     if (phones.length > 5 && !isShowAll)// isShowAll na thakle and 5 besi hole
-     {
+    {
         showButtonContainer.classList.remove('hidden')
     }
     else {
         showButtonContainer.classList.add('hidden');
     }
-    console.log("ishowAll check",isShowAll)
+    console.log("ishowAll check", isShowAll)
     if (!isShowAll) {
         phones = phones.slice(0, 5); // all phones or elements na dekhai just 1st 5 ta dekhabo
     }
@@ -68,14 +76,14 @@ const displayPhone = (phones, isShowAll) => {
 
     // hidden spinner ui after append phone
     Toggoleloading_spinner(false);
-    NoDataFound(false)
+    
 }
 
 // search phone
 
 const SearchPhone = (isShowAll) => {
     Toggoleloading_spinner(true);
-    NoDataFound(true);
+    // NoDataFound(false);
     const searchFiled = document.getElementById('inputFiledText');
     const searchText = searchFiled.value;// this is input that why value use
     console.log(searchText);
@@ -96,20 +104,20 @@ const Toggoleloading_spinner = (isLoading) => {
     }
 
 }
-// no data found
+// no data found logic
 const NoDataFound = (isDataFound) => {
     const dataNotFound = document.getElementById('dataNotFoundHereID');
     if (isDataFound) {
         dataNotFound.classList.remove('hidden');
-    }
-    else {
-        dataNotFound.innerHTML=`
+        dataNotFound.innerHTML = `
         <h1 class="text-center text-2xl font-bold m-20"> Not Found Data</h1>
         `
     }
+    else {
+        dataNotFound.classList.add('hidden');
+    }
 
 }
-
 
 // show all data if gather then result 5
 const HandleShowAll = () => {
@@ -119,11 +127,11 @@ const HandleShowAll = () => {
 
 // More details button
 
-const MoreDetails=async (id) =>{
-    console.log("each phone id :",id);
+const MoreDetails = async (id) => {
+    console.log("each phone id :", id);
     // now load more data have api link programming hero hunter phone github
-    const res=await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
-    const result=await res.json();
+    const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
+    const result = await res.json();
     console.log(result);
     DetailsDisplay(result.data)
     // need open modal mane click kore popup hobe and show korbe
@@ -131,31 +139,31 @@ const MoreDetails=async (id) =>{
 
 // display details
 
-const DetailsDisplay=(PhoneDetailsData)=>{
-console.log(PhoneDetailsData);
+const DetailsDisplay = (PhoneDetailsData) => {
+    console.log(PhoneDetailsData);
     show_details_modal.showModal(); // id soho function call .html theke neya daisy ui
 
     //iamge show
-    const showDeatilsImage=document.getElementById('show-deatils_phone_image');
-    showDeatilsImage.innerHTML=`
+    const showDeatilsImage = document.getElementById('show-deatils_phone_image');
+    showDeatilsImage.innerHTML = `
     <img src="${PhoneDetailsData.image}" alt="" />
     `
     // name show
-    const showDetailsPhoneName=document.getElementById('show-deatils_phone_name');
-    showDetailsPhoneName.innerText=PhoneDetailsData.name;
+    const showDetailsPhoneName = document.getElementById('show-deatils_phone_name');
+    showDetailsPhoneName.innerText = PhoneDetailsData.name;
     // storage show
-    const showDetailsPhoneStorage=document.getElementById('show-deatils_phone_storage');
-    showDetailsPhoneStorage.innerHTML=`
+    const showDetailsPhoneStorage = document.getElementById('show-deatils_phone_storage');
+    showDetailsPhoneStorage.innerHTML = `
     <p> <span class="font-bold text-2xl">Storage:</span> ${PhoneDetailsData?.mainFeatures?.storage} </p>
     `
     //displaySize
-    const showDetailsPhonedisplaySize=document.getElementById('show-deatils_phone_displaySize');
-    showDetailsPhonedisplaySize.innerHTML=`
+    const showDetailsPhonedisplaySize = document.getElementById('show-deatils_phone_displaySize');
+    showDetailsPhonedisplaySize.innerHTML = `
     <p> <span class="font-bold text-2xl">displaySize:</span> ${PhoneDetailsData?.mainFeatures?.displaySize} </p>
     `
     //releaseDate
-    const showDetailsPhoneReleaseDate=document.getElementById('show-deatils_phone_releaseDate');
-    showDetailsPhoneReleaseDate.innerHTML=`
+    const showDetailsPhoneReleaseDate = document.getElementById('show-deatils_phone_releaseDate');
+    showDetailsPhoneReleaseDate.innerHTML = `
     <p> <span class="font-bold text-2xl">ReleaseDate:</span> ${PhoneDetailsData?.releaseDate || 'No release date'} </p>
     `
 }
